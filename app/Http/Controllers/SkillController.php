@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -24,7 +25,8 @@ class SkillController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Skills/create');
+        $projects = Project::all();
+        return Inertia::render('Skills/create', compact('projects'));
     }
 
     /**
@@ -34,15 +36,24 @@ class SkillController extends Controller
     {
         $request->validate([
             'image' => ['required', 'image'],
-            'name' => ['required', 'min:3']
+            'name' => ['required', 'min:3'],
+            'project_ids' => ['exists:projects,id']
         ]);
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $image = $request->file('image')->store('skills');
-            Skill::create([
+            $skill = Skill::create([
                 'name' => $request->name,
                 'image' => $image
             ]);
+
+            // Associare la skill a ciascun progetto selezionato
+            foreach ($request->project_ids as $projectId) {
+                $project = Project::find($projectId);
+                if ($project) {
+                    $skill->projects()->attach($projectId);
+                }
+            }
 
             return Redirect::route('skills.index');
         }
