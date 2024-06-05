@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            /* CREO COLLONA , SPECIFICO CHIAVE ESTERNA, ELIMINO IL RECORD CORRELATO */
-            $table->foreignId('skill_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('image');
             /* CAMPO NON OBBLIGATORIO */

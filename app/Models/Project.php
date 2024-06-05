@@ -14,7 +14,7 @@ class Project extends Model
 
 
     /* RELAZIONE CON IL MODELLO SKILL */
-    public function skill()
+    public function skills()
     {
         /* MOLTE */
         return $this->belongsToMany(Skill::class);
