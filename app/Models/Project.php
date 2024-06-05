@@ -10,7 +10,7 @@ class Project extends Model
     use HasFactory;
 
     /* VALORI DA ACCETTARE */
-    protected $fillable = ['skill_id', 'name', 'image', 'project_url'];
+    protected $fillable = ['name', 'image', 'project_url'];
 
 
     /* RELAZIONE CON IL MODELLO SKILL */

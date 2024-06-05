@@ -7,10 +7,14 @@ import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
+defineProps({
+    projects: Array
+});
 
 const form = useForm({
     name: '',
-    image: null
+    image: null,
+    project_ids: [],
 });
 
 const submit = () => {
@@ -39,6 +43,18 @@ const submit = () => {
                 <div class="max-w-md mx-auto sm:px-6 lg:px-8 bg-white">
                     <!-- FORM -->
                     <form class="p-4" @submit.prevent="submit">
+
+                        <!-- SELECT PROGETTI -->
+
+                        <div>
+                            <InputLabel for="project_id" value="Project" />
+                            <select v-model="form.project_ids" id="project_id" name="project_ids" multiple
+                                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                                <option v-for="project in projects" :key="project.id" :value="project.id">{{
+                                    project.name }}
+                                </option>
+                            </select>
+                        </div>
                         <!-- NOME SKILL -->
                         <div>
                             <InputLabel for="name" value="Name" />
