@@ -10,7 +10,7 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 
 /* PROPS */
 defineProps({
-    projects: Array
+    projects: Array,
 });
 
 /* CAMPI CHE RICEVARA' LA REQUEST */
