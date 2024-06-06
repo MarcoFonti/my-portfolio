@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Models\Skill;
 use Illuminate\Http\Request;
@@ -16,7 +17,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Projects/index');
+        $projects = ProjectResource::collection(Project::with('skills')->get());
+        return Inertia::render('Projects/index', compact('projects'));
     }
 
     /**

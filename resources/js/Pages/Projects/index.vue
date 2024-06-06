@@ -3,6 +3,10 @@
 /* IMPORTAZIONI */
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+
+defineProps({
+    projects: Object,
+})
 </script>
 
 <!-- HTML -->
@@ -26,6 +30,58 @@ import { Head, Link } from '@inertiajs/vue3';
                 <div class="flex justify-end m-2 p-2">
                     <Link :href="route('projects.create')"
                         class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md"> Crea Projects</Link>
+                </div>
+
+                <!-- TABELLA -->
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    ID
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    NOME
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    IMMAGINE
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    URL
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    SKILLS COLLEGATE
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    <span class="sr-only"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="project in projects.data" :key="project.id"
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row"
+                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ project.id }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ project.name }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <img :src="project.image" :alt="project.name">
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ project.project_url }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span v-for="(skill, index) in project.skills" :key="skill.id">{{ skill.name }} <span v-if="index !== project.skills.length - 1">, </span></span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    Edit/Delete
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
