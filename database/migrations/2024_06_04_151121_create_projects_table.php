@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        /* COLLENE TABELLA PROJECTS */
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('image');
-            /* CAMPO NON OBBLIGATORIO */
-            $table->string('project_url')->nullable();
+            $table->string('project_url')->nullable(); // CAMPO NON OBBLIGATORIO
             $table->timestamps();
         });
     }

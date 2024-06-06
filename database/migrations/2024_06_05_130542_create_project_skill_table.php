@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('project_skill', function (Blueprint $table) {
             $table->id();
-            /* CREO COLLONA , SPECIFICO CHIAVE ESTERNA, ELIMINO IL RECORD CORRELATO */
+            /* CREO COLLONA , SPECIFICO CHIAVI ESTERNE, ELIMINO I RECORD CORRELATI */
             $table->foreignIdFor(Project::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Skill::class)->constrained()->cascadeOnDelete();
             /* $table->timestamps(); */

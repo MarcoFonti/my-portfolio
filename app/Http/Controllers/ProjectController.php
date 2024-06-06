@@ -24,7 +24,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-
+        /* RECUPERO LE SKILLS */
         $skills = Skill::all();
         return Inertia::render('Projects/create', compact('skills'));
     }
@@ -35,22 +35,32 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
 
+        /* VALIDAZIONE */
         $request->validate([
             'image' => ['required', 'image'],
             'name' => ['required', 'min:3'],
             'skill_ids' => ['exists:skills,id'],
 
+        ],[
+            'image.required' => 'L\'immagine è obbligatoria.',
+            'image.image' => 'Il file deve essere un\'immagine.',
+            'name.required' => 'Il nome è obbligatorio.',
+            'name.min' => 'Il nome deve contenere almeno :min caratteri.',
+            'skill_ids.exists' => 'Una o più delle skill selezionate non sono valide.',
         ]);
 
+        /* CONTROLLO FILE IMAGE CARTELLA PROJECTS PER LE IMMAGINI */
         if ($request->hasFile('image')) {
             $image = $request->file('image')->store('projects');
+
+            /* CREO E SALVO LA CHIAMATA */
             $project = Project::create([
                 'name' => $request->name,
                 'image' => $image,
                 'project_url' => $request->project_url
             ]);
 
-            // Associare le skills al progetto solo se il progetto è stato creato
+            /* CONTROLLO SE NELLA REQUEST ABBIAMO L'ARRAY DELLE SKILL E UTILIZZO IL METODO ATTACH PER ASSOCIARLI AL PROGETTO (CHECKBOX) */
             if (Arr::exists($request, 'skill_ids')) {
                 $project->skills()->attach($request->skill_ids);
             }

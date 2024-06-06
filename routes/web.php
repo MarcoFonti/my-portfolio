@@ -18,6 +18,7 @@ use Inertia\Inertia;
 |
 */
 
+/* ROTTA UTENTI NON LOGGATI */
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -27,7 +28,7 @@ Route::get('/', function () {
     ]);
 });
 
-/* CREO GRUPPO DI ROTTE */
+/* CREO GRUPPO DI ROTTE PER AUTENTICATI */
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/dashboard', function(){
         return Inertia::render('Dashboard');

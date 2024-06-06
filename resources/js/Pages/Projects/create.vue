@@ -1,5 +1,6 @@
 <!-- JS -->
 <script setup>
+/* IMPORTAZIONI */
 import Checkbox from '@/Components/Checkbox.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -8,10 +9,12 @@ import TextInput from '@/Components/TextInput.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
+/* PROPS */
 defineProps({
     skills: Array
 });
 
+/* CAMPI CHE RICEVARA' LA REQUEST */
 const form = useForm({
     name: '',
     image: null,
@@ -19,6 +22,7 @@ const form = useForm({
     project_url: ''
 });
 
+/* INVIO MODULO IN POST, CORRISPONDENTE ALLA ROTTA DEFINITA SU WEB.PHP (STORE) */
 const submit = () => {
     form.post(route('projects.store'));
 };
@@ -26,17 +30,22 @@ const submit = () => {
 
 <!-- HTML -->
 <template>
-    <!-- TITOLO -->
 
+    <!-- TITOLO PAGINA -->
     <Head title="Crea Projects" />
 
+    <!-- AUTENTICAZIONE -->
     <AuthenticatedLayout>
+
+        <!-- SEZIONE HEADER -->
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Crea Projects</h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+                <!-- BOTTONE TORNA ALL'INDEX -->
                 <div class="flex justify-star m-2 p-2">
                     <Link :href="route('projects.index')"
                         class="px-4 py-2 bg-cyan-600 hover:bg-cyan-800 text-white rounded-md">
@@ -44,8 +53,10 @@ const submit = () => {
                 </div>
 
                 <div class="max-w-md mx-auto sm:px-6 lg:px-8 bg-white">
+
                     <!-- FORM -->
                     <form class="p-4" @submit.prevent="submit">
+
                         <!-- NOME PROGETTO -->
                         <div class="mt-2">
                             <InputLabel for="name" value="Name" />
@@ -66,7 +77,7 @@ const submit = () => {
                             <InputError class="mt-2" :message="form.errors.project_url" />
                         </div>
 
-                        <!-- IMMAGINE PROGETTO -->
+                        <!-- FILE IMMAGINE PROGETTO -->
                         <div class="mt-2">
                             <InputLabel for="image" value="Image" />
 
@@ -76,7 +87,7 @@ const submit = () => {
                             <InputError class="mt-2" :message="form.errors.image" />
                         </div>
 
-                        <!-- SELEZIONE SKILLS -->
+                        <!-- CHECKBOX SKILLS -->
                         <div class="block mt-4" v-for="skill in skills" :key="skill.id">
                             <label class="flex items-center">
                                 <Checkbox :id="'skill_' + skill.id" :value="skill.id" v-model:checked="form.skill_ids" />
@@ -87,6 +98,7 @@ const submit = () => {
 
                         <div class="flex items-center justify-end mt-4">
 
+                            <!-- BOTTONE DI SALVATAGGIO DEL PROGETTO CREATO -->
                             <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
                                 :disabled="form.processing">
                                 Store
@@ -97,4 +109,5 @@ const submit = () => {
             </div>
         </div>
     </AuthenticatedLayout>
+    
 </template>

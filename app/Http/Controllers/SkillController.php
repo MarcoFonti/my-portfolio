@@ -25,6 +25,8 @@ class SkillController extends Controller
      */
     public function create()
     {
+        
+        /* RECUEPRO I PROGETTI */
         $projects = Project::all();
         return Inertia::render('Skills/create', compact('projects'));
     }
@@ -34,20 +36,30 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
+        /* VALIDAZIONE */
         $request->validate([
             'image' => ['required', 'image'],
             'name' => ['required', 'min:3'],
             'project_ids' => ['exists:projects,id']
+        ],[
+            'image.required' => 'L\'immagine è obbligatoria.',
+            'image.image' => 'Il file deve essere un\'immagine.',
+            'name.required' => 'Il nome è obbligatorio.',
+            'name.min' => 'Il nome deve contenere almeno :min caratteri.',
+            'project_ids.exists' => 'Uno o più dei progetti selezionati non sono validi.',
         ]);
 
+        /* CONTROLLO FILE IMAGE CARTELLA SKILLS PER LE IMMAGINI */
         if ($request->hasFile('image')) {
             $image = $request->file('image')->store('skills');
+
+            /* CREO E SALVO LA CHIAMATA */
             $skill = Skill::create([
                 'name' => $request->name,
                 'image' => $image
             ]);
 
-            // Associare la skill a ciascun progetto selezionato
+            /* ITERO SU OGNI ID PER TROVARE IL PROGETTO CORRISPONDENTE E LO ASSOCIO ALLA SKILL UTILIZZANDO IL METOTO ATTACH (SELECT MULTIPLA) */
             foreach ($request->project_ids as $projectId) {
                 $project = Project::find($projectId);
                 if ($project) {
