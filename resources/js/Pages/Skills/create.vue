@@ -65,6 +65,8 @@ const submit = () => {
                                 </option>
                             </select>
                         </div>
+                        <!-- InputError per la selezione multipla dei progetti -->
+                        <InputError v-if="form.errors['project_ids']" class="mt-2" :message="form.errors['project_ids']" />
 
                         <!-- NOME SKILL -->
                         <div>

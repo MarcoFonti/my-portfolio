@@ -4,6 +4,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
+/* PROPS */
 defineProps({
     projects: Object,
 })
@@ -58,6 +59,7 @@ defineProps({
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- CICLO PER RECUPERARE I VALORI DEI PROJECTS -->
                             <tr v-for="project in projects.data" :key="project.id"
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row"
@@ -74,6 +76,7 @@ defineProps({
                                     {{ project.project_url }}
                                 </td>
                                 <td class="px-6 py-4">
+                                    <!-- ITERO SUI PROGETTI ASSOCIATI ALLA SKILL E SEPARO I NOMI CON LE VIRGOLE ESCLUDENTO L'ULTIMO ELEMENTO -->
                                     <span v-for="(skill, index) in project.skills" :key="skill.id">{{ skill.name }} <span v-if="index !== project.skills.length - 1">, </span></span>
                                 </td>
                                 <td class="px-6 py-4 text-right">

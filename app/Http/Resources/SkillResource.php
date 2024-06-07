@@ -14,11 +14,12 @@ class SkillResource extends JsonResource
      */
     public function toArray(Request $request)
     {
+        /* VALORI RECUPERATI DAL DB */
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => asset('storage/'. $this->image),
-            'projects' => $this->projects->select('id', 'name')
+            'image' => asset('storage/' . $this->image), // METODO PER GENERARE URL MEMORIZZATO NELLO STORAGE
+            'projects' => $this->projects->select('id', 'name') // RECUPERO ID, NAME DEI PROJECTS
         ];
     }
 }

@@ -32,6 +32,7 @@ const submit = () => {
 <template>
 
     <!-- TITOLO PAGINA -->
+
     <Head title="Crea Projects" />
 
     <!-- AUTENTICAZIONE -->
@@ -90,10 +91,13 @@ const submit = () => {
                         <!-- CHECKBOX SKILLS -->
                         <div class="block mt-4" v-for="skill in skills" :key="skill.id">
                             <label class="flex items-center">
-                                <Checkbox :id="'skill_' + skill.id" :value="skill.id" v-model:checked="form.skill_ids" />
+                                <Checkbox :id="'skill_' + skill.id" :value="skill.id"
+                                    v-model:checked="form.skill_ids" />
                                 <span class="ms-2 text-sm text-gray-600">{{ skill.name }}</span>
                             </label>
                         </div>
+                            <!-- InputError per il checkbox -->
+                            <InputError class="mt-2" :message="form.errors['skill_ids']" />
 
 
                         <div class="flex items-center justify-end mt-4">
@@ -109,5 +113,5 @@ const submit = () => {
             </div>
         </div>
     </AuthenticatedLayout>
-    
+
 </template>

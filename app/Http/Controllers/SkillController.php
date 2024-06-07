@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSkillRequest;
 use App\Http\Resources\SkillResource;
 use App\Models\Project;
 use App\Models\Skill;
@@ -18,6 +19,7 @@ class SkillController extends Controller
      */
     public function index()
     {
+        /* RECUPERO VALORI MANIPOLATI DALLE RISORSE, E UTILIZZO IL METODO 'WITH' PER RECUPERARE I VALORI DELLA RELAZIONE CON I PROJECTS */
         $skills = SkillResource::collection(Skill::with('projects')->get());   
         return Inertia::render('Skills/index', compact('skills'));
     }
@@ -36,24 +38,12 @@ class SkillController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreSkillRequest $request)
     {
-        /* VALIDAZIONE */
-        $request->validate([
-            'image' => ['required', 'image'],
-            'name' => ['required', 'min:3'],
-            'project_ids' => ['exists:projects,id']
-        ],[
-            'image.required' => 'L\'immagine è obbligatoria.',
-            'image.image' => 'Il file deve essere un\'immagine.',
-            'name.required' => 'Il nome è obbligatorio.',
-            'name.min' => 'Il nome deve contenere almeno :min caratteri.',
-            'project_ids.exists' => 'Uno o più dei progetti selezionati non sono validi.',
-        ]);
 
         /* CONTROLLO FILE IMAGE CARTELLA SKILLS PER LE IMMAGINI */
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('skills');
+            $image = $request->file('image')->store('skills', 'public');
 
             /* CREO E SALVO LA CHIAMATA */
             $skill = Skill::create([
@@ -69,9 +59,11 @@ class SkillController extends Controller
                 }
             }
 
+            /* REINDIRIZZO ALLA ROTTA INDEX */
             return Redirect::route('skills.index');
         }
 
+        /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
         return Redirect::back();
     }
 

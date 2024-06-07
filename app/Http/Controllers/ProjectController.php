@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Models\Skill;
@@ -17,6 +18,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        /* RECUPERO VALORI MANIPOLATI DALLE RISORSE, E UTILIZZO IL METODO 'WITH' PER RECUPERARE I VALORI DELLA RELAZIONE CON LE SKILLS */
         $projects = ProjectResource::collection(Project::with('skills')->get());
         return Inertia::render('Projects/index', compact('projects'));
     }
@@ -34,26 +36,11 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-
-        /* VALIDAZIONE */
-        $request->validate([
-            'image' => ['required', 'image'],
-            'name' => ['required', 'min:3'],
-            'skill_ids' => ['exists:skills,id'],
-
-        ],[
-            'image.required' => 'L\'immagine è obbligatoria.',
-            'image.image' => 'Il file deve essere un\'immagine.',
-            'name.required' => 'Il nome è obbligatorio.',
-            'name.min' => 'Il nome deve contenere almeno :min caratteri.',
-            'skill_ids.exists' => 'Una o più delle skill selezionate non sono valide.',
-        ]);
-
         /* CONTROLLO FILE IMAGE CARTELLA PROJECTS PER LE IMMAGINI */
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('projects');
+            $image = $request->file('image')->store('projects', 'public');
 
             /* CREO E SALVO LA CHIAMATA */
             $project = Project::create([
@@ -67,11 +54,11 @@ class ProjectController extends Controller
                 $project->skills()->attach($request->skill_ids);
             }
 
+            /* REINDIRIZZO ALLA ROTTA INDEX */
             return Redirect::route('projects.index');
         }
 
-
-
+        /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
         return Redirect::back();
     }
 
