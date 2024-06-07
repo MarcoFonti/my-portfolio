@@ -74,7 +74,8 @@ defineProps({
                                     <span v-for="(project, index) in skill.projects" :key="project.id">{{ project.name }} <span v-if="index !== skill.projects.length - 1">, </span></span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
-                                    Edit/Delete
+                                    <Link :href="route('skills.edit', skill.id)" class="font-medium text-blue-500 hover:text-blue-700 mr-2">Edit</Link>
+                                    <Link :href="route('skills.destroy', skill.id)" method="delete" as="button" type="button" class="font-medium text-red-500 hover:text-red-700">Delete</Link>
                                 </td>
                             </tr>
                         </tbody>

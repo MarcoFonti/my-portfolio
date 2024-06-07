@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSkillRequest;
+use App\Http\Requests\UpdateSkillRequest;
 use App\Http\Resources\SkillResource;
 use App\Models\Project;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 use function PHPUnit\Framework\returnSelf;
@@ -20,7 +22,7 @@ class SkillController extends Controller
     public function index()
     {
         /* RECUPERO VALORI MANIPOLATI DALLE RISORSE, E UTILIZZO IL METODO 'WITH' PER RECUPERARE I VALORI DELLA RELAZIONE CON I PROJECTS */
-        $skills = SkillResource::collection(Skill::with('projects')->get());   
+        $skills = SkillResource::collection(Skill::with('projects')->get());
         return Inertia::render('Skills/index', compact('skills'));
     }
 
@@ -29,7 +31,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        
+
         /* RECUEPRO I PROGETTI */
         $projects = Project::all();
         return Inertia::render('Skills/create', compact('projects'));
@@ -43,7 +45,7 @@ class SkillController extends Controller
 
         /* CONTROLLO FILE IMAGE CARTELLA SKILLS PER LE IMMAGINI */
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('skills', 'public');
+            $image = $request->file('image')->store('skills');
 
             /* CREO E SALVO LA CHIAMATA */
             $skill = Skill::create([
@@ -78,17 +80,39 @@ class SkillController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $skill = Skill::with('projects')->findOrFail($id);
+        $projects = Project::all();
+        
+        
+        $skill->project_ids = $skill->projects->pluck('id')->toArray();
+        return Inertia::render('Skills/edit', compact('skill', 'projects',));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateSkillRequest $request, Skill $skill)
     {
-        //
+        // Memorizza l'immagine corrente
+    $image = $skill->image;
+
+    if($request->hasFile('image')){
+        Storage::delete($skill->image);
+        $image = $request->file('image')->store('skills');
+    }
+
+    // Aggiorna il nome e l'immagine della skill
+    $skill->update([
+        'name' => $request->name,
+        'image' => $image,
+    ]);
+
+    // Aggiorna i progetti associati
+    $skill->projects()->sync($request->project_ids);
+
+        return Redirect::route('skills.index');
     }
 
     /**

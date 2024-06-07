@@ -40,7 +40,7 @@ class ProjectController extends Controller
     {
         /* CONTROLLO FILE IMAGE CARTELLA PROJECTS PER LE IMMAGINI */
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('projects', 'public');
+            $image = $request->file('image')->store('projects');
 
             /* CREO E SALVO LA CHIAMATA */
             $project = Project::create([
