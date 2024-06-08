@@ -102,10 +102,10 @@ const submit = () => {
 
                         <div class="flex items-center justify-end mt-4">
 
-                            <!-- BOTTONE DI SALVATAGGIO DEL PROGETTO CREATO -->
+                            <!-- BOTTONE DI SALVATAGGIO DEL PROGETTO CREATO (PASSATA ALLO STORE)-->
                             <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
                                 :disabled="form.processing">
-                                Store
+                                SALVA PROGETTO CREATO
                             </PrimaryButton>
                         </div>
                     </form>

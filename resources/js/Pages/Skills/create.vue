@@ -90,10 +90,10 @@ const submit = () => {
 
                         <div class="flex items-center justify-end mt-4">
 
-                            <!-- BOTTONE DI SALVATAGGIO DELLA SKILL CREATA -->
+                            <!-- BOTTONE DI SALVATAGGIO DELLA SKILL CREATA (PASSATA ALLO STORE) -->
                             <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
                                 :disabled="form.processing">
-                                Store
+                                SALVA SKILL CREATA
                             </PrimaryButton>
                         </div>
                     </form>

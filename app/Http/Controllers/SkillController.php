@@ -23,6 +23,8 @@ class SkillController extends Controller
     {
         /* RECUPERO VALORI MANIPOLATI DALLE RISORSE, E UTILIZZO IL METODO 'WITH' PER RECUPERARE I VALORI DELLA RELAZIONE CON I PROJECTS */
         $skills = SkillResource::collection(Skill::with('projects')->get());
+
+        /* VISTA DELLE SKILLS */
         return Inertia::render('Skills/index', compact('skills'));
     }
 
@@ -34,6 +36,8 @@ class SkillController extends Controller
 
         /* RECUEPRO I PROGETTI */
         $projects = Project::all();
+
+        /* VISTA PER LA CREAZIONE */
         return Inertia::render('Skills/create', compact('projects'));
     }
 
@@ -43,7 +47,7 @@ class SkillController extends Controller
     public function store(StoreSkillRequest $request)
     {
 
-        /* CONTROLLO FILE IMAGE CARTELLA SKILLS PER LE IMMAGINI */
+        /* CONTROLLO FILE IMAGE E CREO CARTELLA SKILLS PER LE IMMAGINI */
         if ($request->hasFile('image')) {
             $image = $request->file('image')->store('skills');
 
@@ -82,11 +86,17 @@ class SkillController extends Controller
      */
     public function edit($id)
     {
+
+        /* CERCO LA SKILL CON ID SPECIFICO E UTILIZZO IL METODO 'WITH' PER CARICARE I PROGETTI ASSOCCIATI */
         $skill = Skill::with('projects')->findOrFail($id);
+
+        /* RECUEPRO TUTTI I PROGETTI */
         $projects = Project::all();
-        
-        
+
+        /* ESTRAGGO GLI ID DEI PROGETTI ASSOCIATI ALLA SKILL E SALVO LI SALVO IN UN ARRAY */
         $skill->project_ids = $skill->projects->pluck('id')->toArray();
+
+        /* VISTA PER IL MODOFICA */
         return Inertia::render('Skills/edit', compact('skill', 'projects',));
     }
 
@@ -95,23 +105,25 @@ class SkillController extends Controller
      */
     public function update(UpdateSkillRequest $request, Skill $skill)
     {
-        // Memorizza l'immagine corrente
-    $image = $skill->image;
+        /* ASSEGNO L'IMMGINE ATTULALE A UNA VARIBILE */
+        $image = $skill->image;
 
-    if($request->hasFile('image')){
-        Storage::delete($skill->image);
-        $image = $request->file('image')->store('skills');
-    }
+        /* VERIFICO SE NELLA REQUEST C'E' UN FILE 'IMAGE', SE CE UNA NUOVA IMMAGINE ELIMINO LA PRECENDETE, E LA SALVO */
+        if ($request->hasFile('image')) {
+            Storage::delete($skill->image);
+            $image = $request->file('image')->store('skills');
+        }
 
-    // Aggiorna il nome e l'immagine della skill
-    $skill->update([
-        'name' => $request->name,
-        'image' => $image,
-    ]);
+        /* AGGIORNO I VALORI DELLA SKILL */
+        $skill->update([
+            'name' => $request->name,
+            'image' => $image,
+        ]);
 
-    // Aggiorna i progetti associati
-    $skill->projects()->sync($request->project_ids);
+        /* RIMUOVO E AGGIUNGO LE ASSOCIAZIONI NECESSARIE IN MODO CHE GLI ID DEI PROGETTI ASSOCIATI ALLA SKILL CORRISPONDONDO AGLI ID DELLA RICHIESTA */
+        $skill->projects()->sync($request->project_ids);
 
+        /* PAGINA INDEX */
         return Redirect::route('skills.index');
     }
 

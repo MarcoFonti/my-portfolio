@@ -22,10 +22,12 @@ const form = useForm({
     project_ids: props.skill?.project_ids,
 });
 
-/* INVIO MODULO IN POST, CORRISPONDENTE ALLA ROTTA DEFINITA SU WEB.PHP (STORE) */
+/* INVIO UNA RICHIESTA HTTP POST AL URL, USO 'METHOD' PER INDICARE CHE LA RICHIESTA DEVE ESSERE TRATTATA COME 'PUT' */
 const submit = () => {
     Inertia.post(`/skills/${props.skill.id}`, {
         _method: 'put',
+
+        /* INVIO NUOVI VALORI */
         name: form.name,
         image: form.image,
         project_ids: form.project_ids,
@@ -100,10 +102,10 @@ const submit = () => {
 
                         <div class="flex items-center justify-end mt-4">
 
-                            <!-- BOTTONE DI SALVATAGGIO DELLA SKILL CREATA -->
+                            <!-- BOTTONE DI SALVATAGGIO DELLA SKILL MODIFICATA (PASSATA UPDATE) -->
                             <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
                                 :disabled="form.processing">
-                                Store
+                                SALVA MODIFICHE 
                             </PrimaryButton>
                         </div>
                     </form>

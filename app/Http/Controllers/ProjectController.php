@@ -20,6 +20,8 @@ class ProjectController extends Controller
     {
         /* RECUPERO VALORI MANIPOLATI DALLE RISORSE, E UTILIZZO IL METODO 'WITH' PER RECUPERARE I VALORI DELLA RELAZIONE CON LE SKILLS */
         $projects = ProjectResource::collection(Project::with('skills')->get());
+        
+        /* VISTA PER I PROGETTI */
         return Inertia::render('Projects/index', compact('projects'));
     }
 
@@ -30,6 +32,8 @@ class ProjectController extends Controller
     {
         /* RECUPERO LE SKILLS */
         $skills = Skill::all();
+        
+        /* VISTA PER LA CREAZIONE */
         return Inertia::render('Projects/create', compact('skills'));
     }
 
@@ -38,7 +42,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        /* CONTROLLO FILE IMAGE CARTELLA PROJECTS PER LE IMMAGINI */
+        /* CONTROLLO FILE IMAGE E CREO CARTELLA PROJECTS PER LE IMMAGINI */
         if ($request->hasFile('image')) {
             $image = $request->file('image')->store('projects');
 
