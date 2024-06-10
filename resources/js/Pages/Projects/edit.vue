@@ -49,27 +49,20 @@ const submit = () => {
 
         <!-- SEZIONE HEADER -->
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Modifica Skills</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Modifica Progetto</h2>
         </template>
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-                <!-- BOTTONE TORNA ALL'INDEX -->
-                <div class="flex justify-star m-2 p-2">
-                    <Link :href="route('projects.index')"
-                        class="px-4 py-2 bg-cyan-600 hover:bg-cyan-800 text-white rounded-md">
-                    Torna Indietro</Link>
-                </div>
-
-                <div class="max-w-md mx-auto sm:px-6 lg:px-8 bg-white">
+                <div class="max-w-md mx-auto sm:px-6 lg:px-8 bg-white py-6 shadow-sm sm:rounded-lg">
 
                     <!-- FORM -->
                     <form class="p-4" @submit.prevent="submit">
 
                         <!-- NOME PROGETTO -->
                         <div class="mt-2">
-                            <InputLabel for="name" value="Name" />
+                            <InputLabel for="name" value="NOME" />
 
                             <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" autofocus
                                 autocomplete="name" />
@@ -78,7 +71,7 @@ const submit = () => {
                         </div>
 
                         <!-- URL PROGETTO -->
-                        <div class="mt-2">
+                        <div class="mt-3">
                             <InputLabel for="project_url" value="URL" />
 
                             <TextInput id="project_url" type="text" class="mt-1 block w-full" v-model="form.project_url"
@@ -88,7 +81,7 @@ const submit = () => {
                         </div>
 
                         <!-- CHECKBOX SKILLS -->
-                        <div class="block mt-4" v-for="skill in skills" :key="skill.id">
+                        <div class="block mt-3" v-for="skill in skills" :key="skill.id">
                             <label class="flex items-center">
                                 <Checkbox :id="'skill_' + skill.id" :value="skill.id"
                                     v-model:checked="form.skill_ids" />
@@ -98,15 +91,22 @@ const submit = () => {
                         <!-- InputError per il checkbox -->
                         <InputError class="mt-2" :message="$page.props.errors['skill_ids']" />
 
-                        <div class="flex items-center justify-end mt-4">
+                        <div class="flex items-center justify-end mt-8">
 
                             <!-- BOTTONE DI SALVATAGGIO DELLA SKILL MODIFICATA (PASSATA UPDATE) -->
                             <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }"
                                 :disabled="form.processing">
-                                SALVA MODIFICHE
+                                SALVA
                             </PrimaryButton>
                         </div>
                     </form>
+                </div>
+
+                <!-- BOTTONE TORNA ALL'INDEX -->
+                <div class="flex justify-star m-2 p-2">
+                    <Link :href="route('projects.index')"
+                        class="px-4 py-2 bg-cyan-600 hover:bg-cyan-800 text-white rounded-md">
+                    Torna Indietro</Link>
                 </div>
             </div>
         </div>
