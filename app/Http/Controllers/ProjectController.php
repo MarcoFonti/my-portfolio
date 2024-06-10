@@ -20,7 +20,7 @@ class ProjectController extends Controller
     {
         /* RECUPERO VALORI MANIPOLATI DALLE RISORSE, E UTILIZZO IL METODO 'WITH' PER RECUPERARE I VALORI DELLA RELAZIONE CON LE SKILLS */
         $projects = ProjectResource::collection(Project::with('skills')->get());
-        
+
         /* VISTA PER I PROGETTI */
         return Inertia::render('Projects/index', compact('projects'));
     }
@@ -32,7 +32,7 @@ class ProjectController extends Controller
     {
         /* RECUPERO LE SKILLS */
         $skills = Skill::all();
-        
+
         /* VISTA PER LA CREAZIONE */
         return Inertia::render('Projects/create', compact('skills'));
     }
@@ -43,20 +43,20 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         /* CONTROLLO FILE IMAGE E CREO CARTELLA PROJECTS PER LE IMMAGINI */
-        
 
-            /* CREO E SALVO LA CHIAMATA */
-            $project = Project::create([
-                'name' => $request->name,
-                'project_url' => $request->project_url
-            ]);
 
-            /* CONTROLLO SE NELLA REQUEST ABBIAMO L'ARRAY DELLE SKILL E UTILIZZO IL METODO ATTACH PER ASSOCIARLI AL PROGETTO (CHECKBOX) */
-            if (Arr::exists($request, 'skill_ids')) {
-                $project->skills()->attach($request->skill_ids);
-            }
+        /* CREO E SALVO LA CHIAMATA */
+        $project = Project::create([
+            'name' => $request->name,
+            'project_url' => $request->project_url
+        ]);
 
-            
+        /* CONTROLLO SE NELLA REQUEST ABBIAMO L'ARRAY DELLE SKILL E UTILIZZO IL METODO ATTACH PER ASSOCIARLI AL PROGETTO (CHECKBOX) */
+        if (Arr::exists($request, 'skill_ids')) {
+            $project->skills()->attach($request->skill_ids);
+        }
+
+
 
         /* REINDIRIZZO ALLA ROTTA INDEX */
         return Redirect::route('projects.index');
@@ -75,15 +75,34 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        /* CERCO LA SKILL CON ID SPECIFICO E UTILIZZO IL METODO 'WITH' PER CARICARE I PROGETTI ASSOCCIATI */
+        $project = Project::with('skills')->findOrFail($id);
+
+        /* RECUEPRO TUTTI I PROGETTI */
+        $skills = Skill::all();
+
+        /* ESTRAGGO GLI ID DEI PROGETTI ASSOCIATI ALLA SKILL E SALVO LI SALVO IN UN ARRAY */
+        $project->skill_ids = $project->skills->pluck('id')->toArray();
+
+        /* VISTA PER IL MODOFICA */
+        return Inertia::render('Projects/edit', compact('skills', 'project',));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        /* AGGIORNO I VALORI DELLA SKILL */
+        $project->update([
+            'name' => $request->name,
+            'project_url' => $request->project_url,
+        ]);
+
+        $project->skills()->sync($request->skill_ids);
+
+        /* PAGINA INDEX */
+        return Redirect::route('projects.index');
     }
 
     /**

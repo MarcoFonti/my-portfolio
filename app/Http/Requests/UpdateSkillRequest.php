@@ -24,7 +24,7 @@ class UpdateSkillRequest extends FormRequest
         /* VALIDAZIONE */
         return [
             'name' => ['required', 'min:3'],
-            'project_ids' => ['required', 'exists:projects,id']
+            'project_ids' => ['exists:projects,id']
         ];
     }
 
@@ -39,7 +39,6 @@ class UpdateSkillRequest extends FormRequest
         return [
             'name.required' => 'Il nome è obbligatorio.',
             'name.min' => 'Il nome deve contenere almeno :min caratteri.',
-            'project_ids.required' => 'Almeno un progetto deve essere selezionata.',
             'project_ids.exists' => 'Uno o più dei progetti selezionati non sono validi.',
         ];
     }
