@@ -18,7 +18,6 @@ class ProjectResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => asset('storage/' . $this->image), // METODO PER GENERARE URL MEMORIZZATO NELLO STORAGE
             'project_url' => $this->project_url,
             'skills' => $this->skills->select('id', 'name') // RECUPERO ID, NAME DELLE SKILLS
         ];

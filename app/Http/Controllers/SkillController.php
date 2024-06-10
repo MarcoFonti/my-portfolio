@@ -102,9 +102,6 @@ class SkillController extends Controller
     public function update(UpdateSkillRequest $request, Skill $skill)
     {
         
-
-        
-
         /* AGGIORNO I VALORI DELLA SKILL */
         $skill->update([
             'name' => $request->name,

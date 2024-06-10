@@ -11,7 +11,7 @@ class Project extends Model
     use HasFactory;
 
     /* ELIMINAZIONE SOFT */
-    /* use SoftDeletes; */
+    use SoftDeletes;
 
     /* VALORI DA ACCETTARE */
     protected $fillable = ['name', 'image', 'project_url'];
