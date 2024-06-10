@@ -9,8 +9,10 @@ import { Link } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 
+/* VALORE PER NASCONDERE ALERT */
 const isHidden = ref(false);
 
+/* FUNZIONE CHIUDI ALERT */
 function hide() {
     isHidden.value = true;
 }
@@ -20,7 +22,7 @@ function hide() {
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
-        
+
             <!-- ALERT -->
             <div v-if="$page.props.flash.message" class="relative p-4 mb-4 text-sm flex justify-between" :class="{
                 'text-green-700 bg-green-100 dark:bg-green-400 dark:text-green-800': $page.props.flash.type === 'store',
@@ -51,10 +53,10 @@ function hide() {
                                     Dashboard
                                 </NavLink>
                                 <NavLink :href="route('skills.index')" :active="route().current('skills.index')">
-                                    Skill
+                                    Abilità
                                 </NavLink>
                                 <NavLink :href="route('projects.index')" :active="route().current('projects.index')">
-                                    Project
+                                    Progetti
                                 </NavLink>
                             </div>
                         </div>
@@ -80,9 +82,9 @@ function hide() {
                                     </template>
 
                                     <template #content>
-                                        <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
+                                        <DropdownLink :href="route('profile.edit')"> Profilo </DropdownLink>
                                         <DropdownLink :href="route('logout')" method="post" as="button">
-                                            Log Out
+                                            Esci
                                         </DropdownLink>
                                     </template>
                                 </Dropdown>
@@ -117,6 +119,12 @@ function hide() {
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('skills.index')" :active="route().current('skills.index')">
+                            Abilità
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('projects.index')" :active="route().current('projects.index')">
+                            Progetti
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -129,9 +137,9 @@ function hide() {
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
+                            <ResponsiveNavLink :href="route('profile.edit')"> Profilo </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
+                                Esci
                             </ResponsiveNavLink>
                         </div>
                     </div>
