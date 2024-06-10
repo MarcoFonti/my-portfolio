@@ -30,7 +30,9 @@ defineProps({
                 <!-- BOTTONE CREA SKILL -->
                 <div class="flex justify-end m-2 p-2">
                     <Link :href="route('skills.create')"
-                        class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md"> Crea Skills</Link>
+                        class="mr-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md"> Crea Skills</Link>
+                    <Link :href="route('skills.trash')"
+                        class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md"> Cestino</Link>
                 </div>
 
                 <!-- TABELLA -->
@@ -43,9 +45,6 @@ defineProps({
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     NOME
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    IMMAGINE
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     PROGETTI COLLEGATI
@@ -65,9 +64,6 @@ defineProps({
                                 </th>
                                 <td class="px-6 py-4">
                                     {{ skill.name }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    <img :src="skill.image" :alt="skill.name">
                                 </td>
                                 <td class="px-6 py-4">
                                     <!-- ITERO SUI PROGETTI ASSOCIATI ALLA SKILL E SEPARO I NOMI CON LE VIRGOLE ESCLUDENTO L'ULTIMO ELEMENTO -->

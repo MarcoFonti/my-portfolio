@@ -43,13 +43,11 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         /* CONTROLLO FILE IMAGE E CREO CARTELLA PROJECTS PER LE IMMAGINI */
-        if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('projects');
+        
 
             /* CREO E SALVO LA CHIAMATA */
             $project = Project::create([
                 'name' => $request->name,
-                'image' => $image,
                 'project_url' => $request->project_url
             ]);
 
@@ -58,12 +56,10 @@ class ProjectController extends Controller
                 $project->skills()->attach($request->skill_ids);
             }
 
-            /* REINDIRIZZO ALLA ROTTA INDEX */
-            return Redirect::route('projects.index');
-        }
+            
 
-        /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
-        return Redirect::back();
+        /* REINDIRIZZO ALLA ROTTA INDEX */
+        return Redirect::route('projects.index');
     }
 
     /**

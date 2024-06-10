@@ -78,16 +78,6 @@ const submit = () => {
                             <InputError class="mt-2" :message="form.errors.project_url" />
                         </div>
 
-                        <!-- FILE IMMAGINE PROGETTO -->
-                        <div class="mt-2">
-                            <InputLabel for="image" value="Image" />
-
-                            <TextInput id="image" type="file" class="mt-1 block w-full"
-                                @input="form.image = $event.target.files[0]" />
-
-                            <InputError class="mt-2" :message="form.errors.image" />
-                        </div>
-
                         <!-- CHECKBOX SKILLS -->
                         <div class="block mt-4" v-for="skill in skills" :key="skill.id">
                             <label class="flex items-center">

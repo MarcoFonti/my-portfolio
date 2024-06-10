@@ -18,7 +18,6 @@ class SkillResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => asset('storage/' . $this->image), // METODO PER GENERARE URL MEMORIZZATO NELLO STORAGE
             'projects' => $this->projects->select('id', 'name') // RECUPERO ID, NAME DEI PROJECTS
         ];
     }
