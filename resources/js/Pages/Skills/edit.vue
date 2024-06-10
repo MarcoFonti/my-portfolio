@@ -76,7 +76,7 @@ const submit = () => {
                         </div>
                         <!-- InputError per la selezione multipla dei progetti -->
                         <InputError v-if="form.errors['project_ids']" class="mt-2"
-                            :message="form.errors['project_ids']" />
+                            :message="$page.props.errors['project_ids']" />
 
                         <!-- NOME SKILL -->
                         <div>
@@ -85,7 +85,7 @@ const submit = () => {
                             <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" autofocus
                                 autocomplete="name" />
 
-                            <InputError class="mt-2" :message="form.errors.name" />
+                            <InputError class="mt-2" :message="$page.props.errors.name" />
                         </div>
 
                         <div class="flex items-center justify-end mt-4">

@@ -74,7 +74,7 @@ const submit = () => {
                             <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" autofocus
                                 autocomplete="name" />
 
-                            <InputError class="mt-2" :message="form.errors.name" />
+                            <InputError class="mt-2" :message="$page.props.errors.name" />
                         </div>
 
                         <!-- URL PROGETTO -->
@@ -84,7 +84,7 @@ const submit = () => {
                             <TextInput id="project_url" type="text" class="mt-1 block w-full" v-model="form.project_url"
                                 autocomplete="projecturl" />
 
-                            <InputError class="mt-2" :message="form.errors.project_url" />
+                            <InputError class="mt-2" :message="$page.props.errors.project_url" />
                         </div>
 
                         <!-- CHECKBOX SKILLS -->
@@ -96,7 +96,7 @@ const submit = () => {
                             </label>
                         </div>
                         <!-- InputError per il checkbox -->
-                        <InputError class="mt-2" :message="form.errors['skill_ids']" />
+                        <InputError class="mt-2" :message="$page.props.errors['skill_ids']" />
 
                         <div class="flex items-center justify-end mt-4">
 

@@ -66,7 +66,7 @@ class SkillController extends Controller
             }
 
             /* REINDIRIZZO ALLA ROTTA INDEX */
-            return Redirect::route('skills.index');
+            return Redirect::route('skills.index')->with('message', 'Skill ' . $skill->name . ' creata')->with('type', 'store');
     }
 
     /**
@@ -111,7 +111,7 @@ class SkillController extends Controller
         $skill->projects()->sync($request->project_ids);
 
         /* PAGINA INDEX */
-        return Redirect::route('skills.index');
+        return Redirect::route('skills.index')->with('message', 'Skill ' . $skill->name . ' modificata')->with('type', 'update');
     }
 
     /**
@@ -123,7 +123,7 @@ class SkillController extends Controller
         $skill->delete();
 
         /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
-        return Redirect::back();
+        return Redirect::back()->with('message', 'Skill ' . $skill->name . ' messa nel cestino')->with('type', 'destroy');
     }
 
     /* ROTTE CESTINO */
@@ -142,6 +142,6 @@ class SkillController extends Controller
         $skill->restore();
 
         /* PAGINA INDEX */
-        return Redirect::route('skills.index');
+        return Redirect::route('skills.index')->with('message', 'Skill ' . $skill->name . ' ripreso dal cestino')->with('type', 'restore');
     }
 }

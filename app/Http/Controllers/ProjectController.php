@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Models\Project;
 use App\Models\Skill;
@@ -59,7 +60,7 @@ class ProjectController extends Controller
 
 
         /* REINDIRIZZO ALLA ROTTA INDEX */
-        return Redirect::route('projects.index');
+        return Redirect::route('projects.index')->with('message', 'Progetto ' . $project->name . ' creato')->with('type', 'store');
     }
 
     /**
@@ -91,7 +92,7 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
         /* AGGIORNO I VALORI DELLA SKILL */
         $project->update([
@@ -102,7 +103,7 @@ class ProjectController extends Controller
         $project->skills()->sync($request->skill_ids);
 
         /* PAGINA INDEX */
-        return Redirect::route('projects.index');
+        return Redirect::route('projects.index')->with('message', 'Progetto ' . $project->name . ' modificato')->with('type', 'update');
     }
 
     /**
@@ -114,7 +115,7 @@ class ProjectController extends Controller
         $project->delete();
 
         /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
-        return Redirect::back();
+        return Redirect::back()->with('message', 'Progetto ' . $project->name . ' messo nel cestino')->with('type', 'destroy');
     }
 
     /* ROTTE CESTINO */
@@ -133,6 +134,6 @@ class ProjectController extends Controller
         $project->restore();
 
         /* PAGINA INDEX */
-        return Redirect::route('projects.index');
+        return Redirect::route('projects.index')->with('message', 'Progetto ' . $project->name . ' ripreso dal cestino')->with('type', 'restore');
     }
 }
