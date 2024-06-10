@@ -21,6 +21,7 @@ function hide() {
     <div>
         <div class="min-h-screen bg-gray-100">
         
+            <!-- ALERT -->
             <div v-if="$page.props.flash.message" class="relative p-4 mb-4 text-sm flex justify-between" :class="{
                 'text-green-700 bg-green-100 dark:bg-green-400 dark:text-green-800': $page.props.flash.type === 'store',
                 'text-yellow-700 bg-yellow-100 dark:bg-yellow-400 dark:text-yellow-800': $page.props.flash.type === 'update',

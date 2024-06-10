@@ -46,9 +46,6 @@ class SkillController extends Controller
      */
     public function store(StoreSkillRequest $request)
     {
-
-        
-
             /* CREO E SALVO LA CHIAMATA */
             $skill = Skill::create([
                 'name' => $request->name,
@@ -65,7 +62,7 @@ class SkillController extends Controller
                 }
             }
 
-            /* REINDIRIZZO ALLA ROTTA INDEX */
+            /* REINDIRIZZO ALLA ROTTA INDEX, CON UN MESSAGGIO */
             return Redirect::route('skills.index')->with('message', 'Skill ' . $skill->name . ' creata')->with('type', 'store');
     }
 
@@ -92,7 +89,7 @@ class SkillController extends Controller
         /* ESTRAGGO GLI ID DEI PROGETTI ASSOCIATI ALLA SKILL E SALVO LI SALVO IN UN ARRAY */
         $skill->project_ids = $skill->projects->pluck('id')->toArray();
 
-        /* VISTA PER IL MODOFICA */
+        /* VISTA PER IL MODIFICA */
         return Inertia::render('Skills/edit', compact('skill', 'projects',));
     }
 
@@ -107,10 +104,10 @@ class SkillController extends Controller
             'name' => $request->name,
         ]);
 
-        /* RIMUOVO E AGGIUNGO LE ASSOCIAZIONI NECESSARIE IN MODO CHE GLI ID DEI PROGETTI ASSOCIATI ALLA SKILL CORRISPONDONDO AGLI ID DELLA RICHIESTA */
+        /* RIMUOVO E AGGIUNGO I PROGETTI IN BASE ALLA RICHIESTA INVITA */
         $skill->projects()->sync($request->project_ids);
 
-        /* PAGINA INDEX */
+        /* REINDIRIZZO ALLA ROTTA INDEX, CON UN MESSAGGIO */
         return Redirect::route('skills.index')->with('message', 'Skill ' . $skill->name . ' modificata')->with('type', 'update');
     }
 
@@ -122,11 +119,11 @@ class SkillController extends Controller
         /* ELIMINO SKILL */
         $skill->delete();
 
-        /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
+        /* REINDIRIZZO ALLA ROTTA PRECEDENTE, CON UN MESSSAGGIO */
         return Redirect::back()->with('message', 'Skill ' . $skill->name . ' messa nel cestino')->with('type', 'destroy');
     }
 
-    /* ROTTE CESTINO */
+    /* CESTINO */
     public function trash()
     {
         /* RECUPERO TUTTI LE SKILLS ELIMINATE */
@@ -136,12 +133,16 @@ class SkillController extends Controller
         return Inertia::render('Skills/trash', compact('skills'));
     }
 
+    /* RIPRISTONO ELEMENTO DAL CESTINO */
     public function restore($id)
     {
+        /* RECUPERO UNA SKILL SPECIFICA CHE E' STATA MESSA NEL CESTINO (NON ELIMINATA DEFINITIVAMENTE) */
         $skill = Skill::withTrashed()->findOrFail($id);
+
+        /* RIPRISTINO */
         $skill->restore();
 
-        /* PAGINA INDEX */
+        /* REINDIRIZZO ALLA ROTTA INDEX, CON UN MESSAGGIO  */
         return Redirect::route('skills.index')->with('message', 'Skill ' . $skill->name . ' ripreso dal cestino')->with('type', 'restore');
     }
 }

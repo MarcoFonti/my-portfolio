@@ -78,6 +78,7 @@ defineProps({
                                         }} <span v-if="index !== project.skills.length - 1">, </span></span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
+                                <!-- BOTTONE RIPRISTINA ELEMENTO -->
                                     <Link :href="route('projects.restore', project.id)" method="patch" as="button" type="button" class="mr-2 font-medium text-blue-500 hover:text-blue-700">Ripristina</Link>
                                 </td>
                             </tr>

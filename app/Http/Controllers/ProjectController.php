@@ -43,9 +43,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        /* CONTROLLO FILE IMAGE E CREO CARTELLA PROJECTS PER LE IMMAGINI */
-
-
+        
         /* CREO E SALVO LA CHIAMATA */
         $project = Project::create([
             'name' => $request->name,
@@ -57,9 +55,7 @@ class ProjectController extends Controller
             $project->skills()->attach($request->skill_ids);
         }
 
-
-
-        /* REINDIRIZZO ALLA ROTTA INDEX */
+        /* REINDIRIZZO ALLA ROTTA INDEX, CON UN MESSAGGIO */
         return Redirect::route('projects.index')->with('message', 'Progetto ' . $project->name . ' creato')->with('type', 'store');
     }
 
@@ -76,16 +72,16 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
-        /* CERCO LA SKILL CON ID SPECIFICO E UTILIZZO IL METODO 'WITH' PER CARICARE I PROGETTI ASSOCCIATI */
+        /* CERCO UN PROGETTO CON ID SPECIFICO E UTILIZZO IL METODO 'WITH' PER CARICARE LE SKILL ASSOCCIATI */
         $project = Project::with('skills')->findOrFail($id);
 
-        /* RECUEPRO TUTTI I PROGETTI */
+        /* RECUEPRO TUTTE LE SKILL */
         $skills = Skill::all();
 
-        /* ESTRAGGO GLI ID DEI PROGETTI ASSOCIATI ALLA SKILL E SALVO LI SALVO IN UN ARRAY */
+        /* ESTRAGGO GLI ID DELLE SKILL ASSOCIATI AL PROGETTO E SALVO IN UN ARRAY */
         $project->skill_ids = $project->skills->pluck('id')->toArray();
 
-        /* VISTA PER IL MODOFICA */
+        /* VISTA PER IL MODIFICA */
         return Inertia::render('Projects/edit', compact('skills', 'project',));
     }
 
@@ -94,15 +90,16 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        /* AGGIORNO I VALORI DELLA SKILL */
+        /* AGGIORNO I VALORI DEI PROGETTI */
         $project->update([
             'name' => $request->name,
             'project_url' => $request->project_url,
         ]);
 
+        /* RIMUOVO E AGGIUNGO LE SKILL IN BASE ALLA RICHIESTA INVITA */
         $project->skills()->sync($request->skill_ids);
 
-        /* PAGINA INDEX */
+        /* REINDIRIZZO ALLA ROTTA INDEX, CON UN MESSAGGIO  */
         return Redirect::route('projects.index')->with('message', 'Progetto ' . $project->name . ' modificato')->with('type', 'update');
     }
 
@@ -114,26 +111,30 @@ class ProjectController extends Controller
         /* ELIMINO PROGETTO */
         $project->delete();
 
-        /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
+        /* REINDIRIZZO ALLA ROTTA PRECEDENTE, CON UN MESSAGGIO */
         return Redirect::back()->with('message', 'Progetto ' . $project->name . ' messo nel cestino')->with('type', 'destroy');
     }
 
-    /* ROTTE CESTINO */
+    /* CESTINO */
     public function trash()
     {
-        /* RECUPERO TUTTI LE SKILLS ELIMINATE */
+        /* RECUPERO TUTTI I PROGETTI ELIMINATI */
         $projects = Project::onlyTrashed()->with('skills')->get();
 
-        /* VISTA SKILLS CESTINATE */
+        /* VISTA PROGETTI CESTINATI */
         return Inertia::render('Projects/trash', compact('projects'));
     }
 
+    /* RIPRISTONO ELEMENTO DAL CESTINO */
     public function restore($id)
     {
+        /* RECUPERO UN PROGETTO SPECIFICO CHE E' STATO MESSO NEL CESTINO (NON ELIMINATO DEFINITIVAMENTE) */
         $project = Project::withTrashed()->findOrFail($id);
+
+        /* RIPRISTINO */
         $project->restore();
 
-        /* PAGINA INDEX */
+        /* REINDIRIZZO ALLA ROTTA INDEX, CON UN MESSAGGIO  */
         return Redirect::route('projects.index')->with('message', 'Progetto ' . $project->name . ' ripreso dal cestino')->with('type', 'restore');
     }
 }

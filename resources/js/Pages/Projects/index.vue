@@ -27,10 +27,11 @@ defineProps({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-                <!-- BOTTONE CREA PROGETTO -->
                 <div class="flex justify-end m-2 p-2">
+                <!-- BOTTONE CREA PROGETTO -->
                     <Link :href="route('projects.create')"
                         class="mr-2 px-4 py-2 bg-indigo-500 hover:bg-indigo-700 text-white rounded-md"> Crea Projects</Link>
+                <!-- BOTTONE CESTINO -->
                         <Link :href="route('projects.trash')"
                         class="px-4 py-2 bg-red-500 hover:bg-red-700 text-white rounded-md"> Cestino</Link>   
                 </div>
@@ -76,7 +77,9 @@ defineProps({
                                     <span v-for="(skill, index) in project.skills" :key="skill.id">{{ skill.name }} <span v-if="index !== project.skills.length - 1">, </span></span>
                                 </td>
                                 <td class="px-6 py-4 text-right">
+                                <!-- BOTTONE MODIFICA ELEMENTO -->
                                     <Link :href="route('projects.edit', project.id)" class="font-medium text-blue-500 hover:text-blue-700 mr-2">Edit</Link>
+                                <!-- BOTTONE CESTINA ELEMENTO -->
                                     <Link :href="route('projects.destroy', project.id)" method="delete" as="button" type="button" class="font-medium text-red-500 hover:text-red-700">Delete</Link>
                                 </td>
                             </tr>
