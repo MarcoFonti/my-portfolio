@@ -23,9 +23,8 @@ class StoreSkillRequest extends FormRequest
     {
         /* VALIDAZIONE */
         return [
-            'image' => ['image'],
             'name' => ['required', 'min:3'],
-            'project_ids' => ['required','exists:projects,id']
+            'project_ids' => ['exists:projects,id']
         ];
     }
 
@@ -38,10 +37,8 @@ class StoreSkillRequest extends FormRequest
     {
         /* MESSAGGIO */
         return [
-            'image.image' => 'Il file deve essere un\'immagine.',
             'name.required' => 'Il nome è obbligatorio.',
             'name.min' => 'Il nome deve contenere almeno :min caratteri.',
-            'project_ids.required' => 'Almeno un progetto deve essere selezionata.',
             'project_ids.exists' => 'Uno o più dei progetti selezionati non sono validi.',
         ];
     }

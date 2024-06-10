@@ -23,7 +23,6 @@ class UpdateSkillRequest extends FormRequest
     {
         /* VALIDAZIONE */
         return [
-            'image' => ['image'],
             'name' => ['required', 'min:3'],
             'project_ids' => ['required', 'exists:projects,id']
         ];
@@ -38,7 +37,6 @@ class UpdateSkillRequest extends FormRequest
     {
         /* MESSAGGIO */
         return [
-            'image.image' => 'Il file deve essere un\'immagine.',
             'name.required' => 'Il nome è obbligatorio.',
             'name.min' => 'Il nome deve contenere almeno :min caratteri.',
             'project_ids.required' => 'Almeno un progetto deve essere selezionata.',

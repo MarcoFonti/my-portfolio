@@ -47,30 +47,26 @@ class SkillController extends Controller
     public function store(StoreSkillRequest $request)
     {
 
-        /* CONTROLLO FILE IMAGE E CREO CARTELLA SKILLS PER LE IMMAGINI */
-        if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('skills');
+        
 
             /* CREO E SALVO LA CHIAMATA */
             $skill = Skill::create([
                 'name' => $request->name,
-                'image' => $image
             ]);
 
             /* ITERO SU OGNI ID PER TROVARE IL PROGETTO CORRISPONDENTE E LO ASSOCIO ALLA SKILL UTILIZZANDO IL METOTO ATTACH (SELECT MULTIPLA) */
-            foreach ($request->project_ids as $projectId) {
-                $project = Project::find($projectId);
-                if ($project) {
-                    $skill->projects()->attach($projectId);
+            if (!empty($request->project_ids)) {
+                foreach ($request->project_ids as $projectId) {
+                    $project = Project::find($projectId);
+
+                    if ($project) {
+                        $skill->projects()->attach($projectId);
+                    }
                 }
             }
 
             /* REINDIRIZZO ALLA ROTTA INDEX */
             return Redirect::route('skills.index');
-        }
-
-        /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
-        return Redirect::back();
     }
 
     /**
@@ -105,19 +101,13 @@ class SkillController extends Controller
      */
     public function update(UpdateSkillRequest $request, Skill $skill)
     {
-        /* ASSEGNO L'IMMGINE ATTULALE A UNA VARIBILE */
-        $image = $skill->image;
+        
 
-        /* VERIFICO SE NELLA REQUEST C'E' UN FILE 'IMAGE', SE CE UNA NUOVA IMMAGINE ELIMINO LA PRECENDETE, E LA SALVO */
-        if ($request->hasFile('image')) {
-            Storage::delete($skill->image);
-            $image = $request->file('image')->store('skills');
-        }
+        
 
         /* AGGIORNO I VALORI DELLA SKILL */
         $skill->update([
             'name' => $request->name,
-            'image' => $image,
         ]);
 
         /* RIMUOVO E AGGIUNGO LE ASSOCIAZIONI NECESSARIE IN MODO CHE GLI ID DEI PROGETTI ASSOCIATI ALLA SKILL CORRISPONDONDO AGLI ID DELLA RICHIESTA */
@@ -130,8 +120,31 @@ class SkillController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Skill $skill)
     {
-        //
+        /* ELIMINO SKILL */
+        $skill->delete();
+
+        /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
+        return Redirect::back();
+    }
+
+    /* ROTTE CESTINO */
+    public function trash()
+    {
+        /* RECUPERO TUTTI LE SKILLS ELIMINATE */
+        $skills = Skill::onlyTrashed()->with('projects')->get();
+
+        /* VISTA SKILLS CESTINATE */
+        return Inertia::render('Skills/trash', compact('skills'));
+    }
+
+    public function restore($id)
+    {
+        $post = Skill::withTrashed()->findOrFail($id);
+        $post->restore();
+
+        /* PAGINA INDEX */
+        return Redirect::route('skills.index');
     }
 }

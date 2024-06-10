@@ -18,7 +18,6 @@ const props = defineProps({
 /* CAMPI CHE RICEVARA' LA REQUEST */
 const form = useForm({
     name: props.skill?.name,
-    image: null,
     project_ids: props.skill?.project_ids,
 });
 
@@ -29,7 +28,6 @@ const submit = () => {
 
         /* INVIO NUOVI VALORI */
         name: form.name,
-        image: form.image,
         project_ids: form.project_ids,
     })
 };
@@ -88,16 +86,6 @@ const submit = () => {
                                 autocomplete="name" />
 
                             <InputError class="mt-2" :message="form.errors.name" />
-                        </div>
-
-                        <!-- FILE IMMAGINE SKILL -->
-                        <div class="mt-2">
-                            <InputLabel for="image" value="Image" />
-
-                            <TextInput id="image" type="file" class="mt-1 block w-full"
-                                @input="form.image = $event.target.files[0]" />
-
-                            <InputError class="mt-2" :message="form.errors.image" />
                         </div>
 
                         <div class="flex items-center justify-end mt-4">

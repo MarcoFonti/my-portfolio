@@ -23,7 +23,6 @@ class StoreProjectRequest extends FormRequest
     {
         /* VALIDAZIONE */
         return [
-            'image' => ['image'],
             'name' => ['required', 'min:3'],
             'skill_ids' => ['required','exists:skills,id'],
         ];
@@ -38,7 +37,6 @@ class StoreProjectRequest extends FormRequest
     {
         /* MESSAGGIO */
         return [
-            'image.image' => 'Il file deve essere un\'immagine.',
             'name.required' => 'Il nome è obbligatorio.',
             'name.min' => 'Il nome deve contenere almeno :min caratteri.',
             'skill_ids.required' => 'Almeno una skill deve essere selezionata.',

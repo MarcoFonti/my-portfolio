@@ -33,11 +33,18 @@ Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/dashboard', function(){
         return Inertia::render('Dashboard');
     })->name('dashboard');
+    
+    
+    /* CESTINO DELLE SKILLS */
+    Route::get('/skills/trash', [SkillController::class, 'trash'])->name('skills.trash');
 
+    /* RIPRISTINA */
+    Route::patch('/skills/{skill}/restore', [SkillController::class, 'restore'])->name('skills.restore');
 
     /* OPERAZIONI CRUD */
     Route::resource('/skills', SkillController::class);
     Route::resource('/projects', ProjectController::class);
+
 });
 
 Route::middleware('auth')->group(function () {
