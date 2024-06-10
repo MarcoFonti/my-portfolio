@@ -108,8 +108,31 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Project $project)
     {
-        //
+        /* ELIMINO PROGETTO */
+        $project->delete();
+
+        /* REINDIRIZZO ALLA ROTTA PRECEDENTE */
+        return Redirect::back();
+    }
+
+    /* ROTTE CESTINO */
+    public function trash()
+    {
+        /* RECUPERO TUTTI LE SKILLS ELIMINATE */
+        $projects = Project::onlyTrashed()->with('skills')->get();
+
+        /* VISTA SKILLS CESTINATE */
+        return Inertia::render('Projects/trash', compact('projects'));
+    }
+
+    public function restore($id)
+    {
+        $project = Project::withTrashed()->findOrFail($id);
+        $project->restore();
+
+        /* PAGINA INDEX */
+        return Redirect::route('projects.index');
     }
 }

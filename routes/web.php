@@ -38,8 +38,14 @@ Route::middleware(['auth', 'verified'])->group(function(){
     /* CESTINO DELLE SKILLS */
     Route::get('/skills/trash', [SkillController::class, 'trash'])->name('skills.trash');
 
-    /* RIPRISTINA */
+    /* RIPRISTINA SKILL */
     Route::patch('/skills/{skill}/restore', [SkillController::class, 'restore'])->name('skills.restore');
+    
+    /* CESTINO DELLE PROGETTI */
+    Route::get('/projects/trash', [ProjectController::class, 'trash'])->name('projects.trash');
+
+    /* RIPRISTINA PROGETTO */
+    Route::patch('/projects/{project}/restore', [ProjectController::class, 'restore'])->name('projects.restore');
 
     /* OPERAZIONI CRUD */
     Route::resource('/skills', SkillController::class);

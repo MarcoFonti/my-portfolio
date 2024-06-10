@@ -138,8 +138,8 @@ class SkillController extends Controller
 
     public function restore($id)
     {
-        $post = Skill::withTrashed()->findOrFail($id);
-        $post->restore();
+        $skill = Skill::withTrashed()->findOrFail($id);
+        $skill->restore();
 
         /* PAGINA INDEX */
         return Redirect::route('skills.index');
