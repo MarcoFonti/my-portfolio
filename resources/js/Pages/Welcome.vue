@@ -15,30 +15,36 @@ defineProps({
 <template>
 
     <!-- TITOLO PAGINA -->
+    <Head title="Home" />
 
-    <Head title="Welcome" />
+    <div class="bg-slate-200 dark:bg-slate-900">
 
-<div class="bg-slate-200 dark:bg-slate-900">
-
-    <!-- HEADER -->
-    <Header>
-        <!-- LINK -->
+        <!-- HEADER -->
+        <Header>
+            <!-- LINK -->
             <div v-if="canLogin">
+
+                <!-- SE LOGGATO -->
                 <Link v-if="$page.props.auth.user" :href="route('dashboard')"
-                class="block mr-3 py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                    class="block mr-3 py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                 Dashboard</Link>
 
+                <!-- SE NON LOGGATO -->
                 <template v-else>
+
+                    <!-- LOGIN -->
                     <Link :href="route('login')"
-                    class="py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                        class="py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                     Accedi</Link>
 
+                    <!-- REGISTRAZIONE -->
                     <!-- <Link v-if="canRegister" :href="route('register')"
                     class="py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                     Register</Link> -->
+
                 </template>
             </div>
-    </Header>
-</div>
+        </Header>
+    </div>
 
 </template>

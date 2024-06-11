@@ -1,6 +1,7 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
+// Importazione del modulo colors di Tailwind CSS
 const colors = require("tailwindcss/colors")
 
 /** @type {import('tailwindcss').Config} */
@@ -11,19 +12,23 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
     ],
-
+    // Configurazione del tema
     theme: {
         fontFamily: {
-            primary: "Playfair Display",
-            body: "work Sans"
+            primary: "Playfair Display", // Font principale
+            body: "work Sans" // Font per il corpo del testo
         },
         container: {
             padding: {
-                DEFAULT: "1rem",
-                lg: "3rem"
+                DEFAULT: "1rem", // Padding predefinito di 1 rem
+                lg: "3rem" // Padding per schermi grandi (lg) di 3 rem
             }
         },
+
+        // Estensione delle configurazioni predefinite
         extend: {
+
+            // Definizione dei colori personalizzati
             colors: {
                 "light-primary": "#FAF1E6",
                 "light-secondary": "#FDFAF6",
@@ -34,10 +39,10 @@ export default {
                 "dark-navy-100": "#07567D",
                 "dark-navy-500": "#292D42",
                 accent : {
-                    DEFAULT: "#ac6b34",
-                    hover: "#925a2b"
+                    DEFAULT: "#ac6b34", // Colore predefinito
+                    hover: "#925a2b", // Colore per hover
                 },
-                paragraph: "#878e99",
+                paragraph: "#878e99", // Colore per i paragrafi
                 blue: colors.blue,
                 indigo: colors.indigo,
                 green: colors.green,

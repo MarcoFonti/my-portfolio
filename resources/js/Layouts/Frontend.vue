@@ -3,9 +3,12 @@
 
 <template>
     <div class="bg-slate-200 dark:bg-slate-900">
+
+        <!-- MAIN -->
         <main class="min-h-screen">
-            <slot/>
+            <slot />
         </main>
+        
         <!-- FOOTER -->
     </div>
 </template>
