@@ -1,12 +1,18 @@
+/* Importazione delle direttive base, components e utilities di Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+/* Definizione di un nuovo livello base con le regole personalizzate */
 @layer base {
+
+    /* Stili per il body del documento */
     body {
         @apply font-body text-paragraph leading-6 bg-sky-950;
     }
 
+    /* Stili per gli elementi h1, h2, h3, h4, h5, h6 */
     h1,
     h2,
     h3,

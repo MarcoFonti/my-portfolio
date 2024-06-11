@@ -1,5 +1,6 @@
 <script setup>
 import Header from '../Components/Frontend/Header.vue';
+import Frontend from '../Layouts/Frontend.vue'
 import { Head, Link } from '@inertiajs/vue3';
 
 defineProps({
@@ -46,5 +47,9 @@ defineProps({
             </div>
         </Header>
     </div>
+
+    <Frontend>
+        
+    </Frontend>
 
 </template>
