@@ -8,7 +8,7 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
-    <nav class="bg-light-primary border-gray-200 dark:bg-dark-primary">
+    <nav class="bg-light-primary border-b border-gray-900 dark:bg-dark-primary">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="../../../img/logo-primary.png" class="w-44" alt="Flowbite Logo" />
