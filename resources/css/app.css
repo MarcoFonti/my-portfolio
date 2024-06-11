@@ -4,8 +4,9 @@
 
 @layer base {
     body {
-        @apply font-body text-paragraph leading-6 bg-gray-200;
+        @apply font-body text-paragraph leading-6 bg-sky-950;
     }
+
     h1,
     h2,
     h3,
@@ -16,7 +17,7 @@
     }
 
     .section {
-        @apply py-12 lg:py-32
+        @apply py-12 lg:py-32;
     }
 
     .section-title {
