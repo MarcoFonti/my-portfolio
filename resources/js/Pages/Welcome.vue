@@ -6,6 +6,7 @@ import Home from '../Components/Frontend/Home.vue';
 import SectionCtaProject from '../Components/Frontend/SectionCtaProject.vue';
 import About from '../Components/Frontend/About.vue';
 import Skills from '../Components/Frontend/Skills.vue';
+import Portfolio from '../Components/Frontend/Portfolio.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 /* PROPS */
@@ -17,13 +18,15 @@ defineProps({
         type: Boolean,
     },
 
-    skills: Object
+    skills: Object,
+    projects: Object
 });
 </script>
 
 <template>
 
     <!-- TITOLO PAGINA -->
+
     <Head title="Home" />
 
     <div class="bg-slate-200 dark:bg-slate-900">
@@ -68,6 +71,9 @@ defineProps({
 
         <!-- ABILITA' -->
         <Skills :skills="skills" />
-    </Frontend>
 
+        <!-- PORTFOLIO -->
+        <Portfolio :projects="projects" :skills="skills" />
+    </Frontend>
+    
 </template>
