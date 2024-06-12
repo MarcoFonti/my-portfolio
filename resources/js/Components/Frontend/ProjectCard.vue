@@ -10,11 +10,11 @@ defineProps({
 
 <template>
     <!-- CARD PROGETTI -->
-    <Link :href="project.project_url" class="group flex flex-col items-center text-center cursor-pointer">
+    <Link :href="project.project_url" class="rounded-2xl group flex flex-col items-center text-center cursor-pointer border border-accent">
 
     <!-- IMMAGINE PROGETTO -->
-    <div class="mb-6">
-        <img class="rounded-2xl h-56" src="" :alt="project.name">
+    <div>
+        <img class="h-56" src="../../../img/project-image.png" :alt="project.name">
     </div>
 
     <!-- USO IL METODO MAP PER CREARE UN NUVO ARRAY ESTRAENDO IL NOME DELLLA SKILL E UNISCO GLI ELEMENTI IN UNA SOLA STRINGA SEPARANDOLI CON LA ',' -->
