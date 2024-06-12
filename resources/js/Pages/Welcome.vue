@@ -1,9 +1,13 @@
 <script setup>
+/* IMPORTAZIONE */
 import Header from '../Components/Frontend/Header.vue';
 import Frontend from '../Layouts/Frontend.vue';
 import Home from '../Components/Frontend/Home.vue';
+import SectionCtaProject from '../Components/Frontend/SectionCtaProject.vue';
+import About from '../Components/Frontend/About.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
+/* PROPS */
 defineProps({
     canLogin: {
         type: Boolean,
@@ -50,7 +54,14 @@ defineProps({
     </div>
 
     <Frontend>
+        <!-- HOME PAGE -->
         <Home/>
+
+        <!-- SEZIONE CTA PROGETTI -->
+        <SectionCtaProject/>
+
+        <!-- CHI SONO -->
+        <About/>
     </Frontend>
 
 </template>

@@ -1,10 +1,13 @@
 <script setup></script>
 
 <template>
+    <!-- SEZIONE HOME -->
     <section id="home"
         class="lg:h-[85vh] flex items-center bg-light-primary dark:bg-dark-primary py-32 lg:py-0 overflow-hidden">
         <div class="container mx-auto h-full">
-            <div class="flex flex-col md:flex-row items-center h-full pt-8 ">
+            <div class="flex lg:flex-row md:flex-col flex-col items-center h-full pt-8 ">
+
+                <!-- CONTENUTO -->
                 <div class="flex-1 flex flex-col items-center lg:items-start">
                     <p class="text-lg text-accent text-md mb-[32px]"> Ciao, Sono Marco! 👋</p>
                     <h1
@@ -14,11 +17,15 @@
                         Mi dedico alla creazione di applicazioni web di eccellenza, costantemente impegnato nel
                         migliorare le mie competenze.
                     </p>
-                    <button
+
+                    <!-- BOTTONE CONTATTAMI -->
+                    <a href="#"
                         class="btn btn-md bg-accent hover:bg-light-secondary md:btn-lg transition-all hover:text-light-tail-500 dark:hover:bg-dark-secondary dark:hover:text-dark-navy-100">Contattami
-                    </button>
+                    </a>
                 </div>
-                <div class="flex flex-1 justify-end items-center h-full mt-8 md:mt-0">
+
+                <!-- IMMAGINE LOGO PRIMARIO -->
+                <div class="flex flex-1 justify-end items-center h-full mt-8 md:mt-8">
                     <img class="rounded-lg" src="../../../img/home-image.jpg" alt="">
                 </div>
             </div>
