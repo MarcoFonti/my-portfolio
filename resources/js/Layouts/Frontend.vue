@@ -1,5 +1,5 @@
 <script setup>
-
+/* IMPORTAZIONI */
 import Footer from '../Components/Frontend/Footer.vue'
 
 </script>
