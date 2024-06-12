@@ -5,6 +5,7 @@ import Frontend from '../Layouts/Frontend.vue';
 import Home from '../Components/Frontend/Home.vue';
 import SectionCtaProject from '../Components/Frontend/SectionCtaProject.vue';
 import About from '../Components/Frontend/About.vue';
+import Skills from '../Components/Frontend/Skills.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 /* PROPS */
@@ -15,6 +16,8 @@ defineProps({
     canRegister: {
         type: Boolean,
     },
+
+    skills: Object
 });
 </script>
 
@@ -55,13 +58,16 @@ defineProps({
 
     <Frontend>
         <!-- HOME PAGE -->
-        <Home/>
+        <Home />
 
         <!-- SEZIONE CTA PROGETTI -->
-        <SectionCtaProject/>
+        <SectionCtaProject />
 
         <!-- CHI SONO -->
-        <About/>
+        <About />
+
+        <!-- ABILITA' -->
+        <Skills :skills="skills" />
     </Frontend>
 
 </template>
