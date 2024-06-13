@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
@@ -22,12 +23,14 @@ use Inertia\Inertia;
 /* ROTTA UTENTI NON LOGGATI */
 Route::get('/', [WelcomeController::class, 'welcome'])->name('welcome');
 
+/* ROTTA CONTATTAMI */
+Route::post('/contact', ContactController::class)->name('contact');
+
 /* CREO GRUPPO DI ROTTE PER AUTENTICATI */
 Route::middleware(['auth', 'verified'])->group(function(){
     Route::get('/dashboard', function(){
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    
     
     /* CESTINO DELLE SKILLS */
     Route::get('/skills/trash', [SkillController::class, 'trash'])->name('skills.trash');
