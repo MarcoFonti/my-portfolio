@@ -3,7 +3,7 @@
 <template>
     <!-- SEZIONE HOME -->
     <section id="home"
-        class="lg:h-[85vh] flex items-center bg-light-primary dark:bg-dark-primary py-32 lg:py-0 overflow-hidden">
+        class="lg:h-full flex items-center bg-light-primary dark:bg-dark-primary py-32 lg:py-50 overflow-hidden">
         <div class="container mx-auto h-full" v-motion :initial="{ opacity: 0, y:100, }" :visible="{ opacity: 1, y:0, }">
             <div class="flex lg:flex-row md:flex-col flex-col items-center h-full pt-8 ">
 

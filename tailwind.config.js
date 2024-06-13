@@ -28,6 +28,10 @@ export default {
         // Estensione delle configurazioni predefinite
         extend: {
 
+            maxHeight: {
+                'custom': '900px', // Aggiunge una classe max-h-custom per 600px
+              },
+
             // Definizione dei colori personalizzati
             colors: {
                 "light-primary": "#FAF1E6",

@@ -63,8 +63,42 @@ const filterProjects = (id) => {
         </nav>
 
         <!-- SEZIONE PROGETTI CARD -->
-        <section class="grid gap-y-12 lg:grid-cols-4 lg:gap-8">
+        <section
+            class="grid gap-y-12 lg:grid-cols-4 lg:gap-8 max-h-custom overflow-y-auto custom-scrollbar">
             <ProjectCard v-for="project in filteredProjects" :key="project.id" :project="project" />
         </section>
+
+
     </div>
 </template>
+
+<style>
+/* styles.css */
+
+.custom-scrollbar {
+    scrollbar-width: thin;
+    /* Per i browser che supportano la personalizzazione della scrollbar */
+    scrollbar-color: #07567D #FDFAF6;
+    padding: 10px;
+    /* thumb color, track color */
+}
+
+/* Per i browser basati su WebKit */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #FDFAF6;
+    /* track color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #07567D;
+    /* thumb color */
+    border-radius: 10px;
+    /* opzionale */
+    border: 2px solid #FDFAF6;
+    /* opzionale, crea uno spazio intorno al thumb */
+}
+</style>

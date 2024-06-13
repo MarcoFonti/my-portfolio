@@ -87,18 +87,17 @@ defineProps({
                                                 }}
                                                 <span v-if="index !== project.skills.length - 1">, </span></span>
                                         </td>
-                                        <td class="px-6 py-4 text-right">
-
+                                        <td class="px-6 py-4 text-right flex flex-col">
                                             <!-- BOTTONE MODIFICA ELEMENTO -->
                                             <Link :href="route('projects.edit', project.id)"
-                                                class="font-medium text-blue-500 hover:text-blue-700 mr-2">Modifica
+                                                class="font-medium text-blue-500 hover:text-blue-700 mb-2">Modifica
                                             </Link>
 
                                             <!-- BOTTONE CESTINA ELEMENTO -->
                                             <Link :href="route('projects.destroy', project.id)" method="delete"
                                                 as="button" type="button"
-                                                class="font-medium text-red-500 hover:text-red-700">Cestina</Link>
-
+                                                class="font-medium text-red-500 hover:text-red-700">Cestina
+                                            </Link>
                                         </td>
                                     </tr>
                                 </tbody>
