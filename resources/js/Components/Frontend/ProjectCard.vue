@@ -10,7 +10,7 @@ defineProps({
 
 <template>
     <!-- CARD PROGETTI -->
-    <Link :href="project.project_url" class="rounded-2xl group flex flex-col items-center text-center cursor-pointer border border-accent" v-motion :initial="{ opacity: 0, y:100, }" :enter="{ opacity: 1, y:0, }">
+    <a :href="project.project_url" target="_blank" class="rounded-2xl group flex flex-col items-center text-center cursor-pointer border border-accent" v-motion :initial="{ opacity: 0, y:100, }" :enter="{ opacity: 1, y:0, }">
 
     <!-- IMMAGINE PROGETTO -->
     <div>
@@ -24,5 +24,5 @@ defineProps({
 
     <!-- TITILO PROGETTO -->
     <h3 class="group-hover:text-light-tail-500 text-2xl font-semibold capitalize mb-3">{{ project.name }}</h3>
-    </Link>
+    </a>
 </template>

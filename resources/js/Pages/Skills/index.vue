@@ -90,11 +90,11 @@ defineProps({
                                                 -
                                             </span>
                                         </td>
-                                        <td class="px-6 py-4 text-right">
+                                        <td class="px-6 py-4 text-right flex flex-col">
 
                                             <!-- BOTTONE MODIFICA ELEMENTO -->
                                             <Link :href="route('skills.edit', skill.id)"
-                                                class="font-medium text-blue-500 hover:text-blue-700 mr-2">Modifica
+                                                class="font-medium text-blue-500 hover:text-blue-700 mb-2">Modifica
                                             </Link>
 
                                             <!-- BOTTONE CESTINA ELEMENTO -->
