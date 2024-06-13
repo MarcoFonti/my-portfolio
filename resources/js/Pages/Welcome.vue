@@ -7,7 +7,8 @@ import SectionCtaProject from '../Components/Frontend/SectionCtaProject.vue';
 import About from '../Components/Frontend/About.vue';
 import Skills from '../Components/Frontend/Skills.vue';
 import Portfolio from '../Components/Frontend/Portfolio.vue';
-import Certificate from '../Components/Frontend/Certificate.vue'
+import Certificate from '../Components/Frontend/Certificate.vue';
+import ContactMe from '../Components/Frontend/ContactMe.vue';
 import { Head, Link } from '@inertiajs/vue3';
 
 /* PROPS */
@@ -79,6 +80,8 @@ defineProps({
         <!-- CERTIFICATO -->
         <Certificate/>
         
+        <!-- CONTATTAMI -->
+        <ContactMe/>
     </Frontend>
     
 </template>
