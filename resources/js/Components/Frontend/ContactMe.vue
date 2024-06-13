@@ -41,7 +41,7 @@ const submit = () => {
 
     <!-- SEZIONE CONTATTAMI -->
     <section class="section bg-light-primary dark:bg-dark-primary">
-        <div class="container mx-uto">
+        <div class="container mx-auto">
             <div class="flex flex-col items-center text-center">
                 <h2 class="section-title">Contattami</h2>
                 <p class="subtitle">
