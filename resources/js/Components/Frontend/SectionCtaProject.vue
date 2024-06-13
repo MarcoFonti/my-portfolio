@@ -14,7 +14,7 @@
 
                 <!-- BOTTENE PROGETTI -->
                 <div class="inline-flex rounded-md shadow">
-                    <a href="#" class="inline-flex items-center justify-center rounded-md border border-transparent bg-light-secondary dark:bg-dark-secondary px-5 py-3 text-base text-dark-primary dark:text-white hover:bg-light-primary dark:hover:bg-dark-primary">Progetti</a>
+                    <a href="#portfolio" class="inline-flex items-center justify-center rounded-md border border-transparent bg-light-secondary dark:bg-dark-secondary px-5 py-3 text-base text-dark-primary dark:text-white hover:bg-light-primary dark:hover:bg-dark-primary">Progetti</a>
                 </div>
             </div>
         </div>
