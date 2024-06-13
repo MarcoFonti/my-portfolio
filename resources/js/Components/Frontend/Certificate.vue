@@ -4,7 +4,7 @@
 
 <template>
     <!-- SEZIONE CERTIFICATO -->
-    <div class="bg-light-tail-100 dark:bg-dark-secondary">
+    <section id="certificate" class="bg-light-tail-100 dark:bg-dark-secondary">
         <div class="container mx-auto py-12 px-4 sm:px-6 lg:flex lg:items-center lg:justify-center lg:py-16 lg:px-8">
 
             <!-- CARD -->
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
 
 </template>

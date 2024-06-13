@@ -29,4 +29,21 @@ class ContactRequest extends FormRequest
             'body' => ['required']
         ];
     }
+
+    /**
+     * Ottiene i messaggi di errore personalizzati per le regole di validazione.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        /* MESSAGGIO */
+        return [
+            'name.required' => 'Il campo nome è obbligatorio.',
+            'name.min' => 'Il campo nome deve essere lungo almeno :min caratteri.',
+            'email.required' => 'Il campo email è obbligatorio.',
+            'email.email' => 'Inserisci un indirizzo email valido.',
+            'body.required' => 'Il campo messaggio è obbligatorio.',
+        ];
+    }
 }

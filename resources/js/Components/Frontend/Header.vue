@@ -1,14 +1,44 @@
 <script setup>
-
-import { ref } from 'vue';
+/* IMPORTAZIONE */
+import { ref, onMounted } from 'vue';
 
 // NAVBAR HAMBURGER
 const showingNavigationDropdown = ref(false);
 
+/* VARIABILE CHE GESTISCE LO STATO DELLO SCROLLING */
+const scrollBg = ref(false)
+
+/* ARRAY DI OGGETTI DELLA NAVBAR */
+const navigations = [
+    {name: 'Home', href: '#home'},
+    {name: 'Chi sono', href: '#about'},
+    {name: 'Progetti', href: '#portfolio'},
+    {name: 'Contattami', href: '#contact'},
+
+];
+
+/* FUNZIONE PER IMPOSTARE LO STATO DI SCROLLBG */
+const setScrollBg = (value) => {
+    scrollBg.value = value;
+}
+
+/* METODO DA ESEGUIRE SOLO UNA VOLTA CHE IL COMPONENTE E STATO MONTANTO NEL DOM */
+onMounted(() => {
+
+    // Aggiunge un event listener per l'evento di scroll sulla finestra
+    window.addEventListener("scroll", () =>{
+
+        // Se lo scroll è maggiore di 50px, imposta scrollBg a true, altrimenti a false
+        return window.scrollY > 50 ? setScrollBg(true) : setScrollBg(false);
+    })
+})
+
 </script>
 
 <template>
-    <nav class="bg-light-primary border-b border-gray-900 dark:bg-dark-primary">
+
+    <!-- COLORE DELLA NAVABAR IN BASE A SCROLLBG -->
+    <nav class="w-full fixed z-20 border-gray-200 px-2 sm:px-4 rounded" :class="{'bg-light-primary dark:bg-dark-primary' : scrollBg, 'bg-white dark:bg-slate-800' : !scrollBg}">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="../../../img/logo-primary.png" class="w-44" alt="Logo" />
@@ -31,27 +61,14 @@ const showingNavigationDropdown = ref(false);
             <div class="w-full md:block md:w-auto" id="navbar-default" :class="{ hidden: showingNavigationDropdown }">
                 <ul
                     class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-light-tail-500 dark:border-y-dark-navy-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 text-white bg-light-tail-500 dark:bg-dark-navy-100 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                            aria-current="page">Home</a>
+                    
+                    <!-- LINK NAVIGAZIONE -->
+                    <li v-for="(navigation, index) in navigations" :key="index">
+                        <a :href="navigation.href"
+                            class="block py-2 pr-4 pl-3 text-light-tail-500 rounded dark:text-dark-navy-100 hover:text-light-tail-500 dark:hover:text-white"
+                            aria-current="page">{{ navigation.name }}</a>
                     </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
-                    </li>
+                    
 
                     <!-- LOGIN E (REGISTRAZIONE) -->
                     <li>

@@ -10,7 +10,7 @@ defineProps({
 
 <template>
     <!-- CARD PROGETTI -->
-    <Link :href="project.project_url" class="rounded-2xl group flex flex-col items-center text-center cursor-pointer border border-accent">
+    <Link :href="project.project_url" class="rounded-2xl group flex flex-col items-center text-center cursor-pointer border border-accent" v-motion :initial="{ opacity: 0, y:100, }" :enter="{ opacity: 1, y:0, }">
 
     <!-- IMMAGINE PROGETTO -->
     <div>

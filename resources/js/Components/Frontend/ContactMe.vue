@@ -40,8 +40,8 @@ const submit = () => {
 <template>
 
     <!-- SEZIONE CONTATTAMI -->
-    <section class="section bg-light-primary dark:bg-dark-primary">
-        <div class="container mx-auto">
+    <section id="contact" class="section bg-light-primary dark:bg-dark-primary">
+        <div class="container mx-auto" v-motion :initial="{ opacity: 0, y:100, }" :visible="{ opacity: 1, y:0, }">
             <div class="flex flex-col items-center text-center">
                 <h2 class="section-title">Contattami</h2>
                 <p class="subtitle">
