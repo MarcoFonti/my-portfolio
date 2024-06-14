@@ -3,11 +3,34 @@
 /* IMPORTAZIONI */
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, Link } from '@inertiajs/vue3';
+import { ref, computed } from 'vue';
 
 /* PROPS */
-defineProps({
+const props = defineProps({
     projects: Object,
-})
+});
+
+
+/* VARIABILE DI STATO PER LA RICERCA */
+const searchQuery = ref('');
+
+
+// COMPUTED PROPERTY PER FILTRARE I PROGETTI IN BASE AL NOME
+const filteredProjects = computed(() => {
+
+     // Se la barra di ricerca è vuota, restituisci tutti i progetti
+    if (!searchQuery.value) {
+        return props.projects.data;
+    }
+
+     // Filtra i progetti in base al valore della barra di ricerca
+    return props.projects.data.filter(project =>
+
+        // Confronta il nome del progetto convertito in minuscolo con il valore della barra di ricerca anch'esso convertito in minuscolo
+        project.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+});
+
 </script>
 
 <!-- HTML -->
@@ -30,6 +53,7 @@ defineProps({
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-5">
 
+
                         <div class="flex justify-end mb-4">
                             <!-- BOTTONE CREA PROGETTO -->
                             <Link :href="route('projects.create')"
@@ -42,6 +66,12 @@ defineProps({
                                 class="px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white rounded-md"> Vedi Cestino
                             </Link>
 
+                        </div>
+
+                        <!-- CAMPO DI RICERCA -->
+                        <div class="mb-4">
+                            <input type="text" v-model="searchQuery" placeholder="Cerca Progetto..."
+                                class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-600">
                         </div>
 
                         <!-- TABELLA -->
@@ -69,7 +99,7 @@ defineProps({
                                 </thead>
                                 <tbody>
                                     <!-- CICLO PER RECUPERARE I VALORI DEI PROJECTS -->
-                                    <tr v-for="project in projects.data" :key="project.id"
+                                    <tr v-for="project in filteredProjects" :key="project.id"
                                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row"
                                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

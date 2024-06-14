@@ -1,7 +1,7 @@
 <script setup>
 /* IMPORTAZIONE */
 import ProjectCard from './ProjectCard.vue';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 /* PROPS */
 const props = defineProps({
@@ -9,32 +9,63 @@ const props = defineProps({
     projects: Object
 });
 
-/* VARIBILE REATTIVA PER I PROGETTI FILTRATI */
+/* VARIBILE REATTIVA PER I PROGETTI */
 const filteredProjects = ref(props.projects.data);
 
-/* SELEZIONE SKILL */
-const selectedSkill = ref('all')
+/* VARIABILE REATTIVA PER LA SELEZIONE DELLA SKILL */
+const selectedSkill = ref('all');
 
-/* FUNZIONE PER FILTRARE I PROGETTI IN BASE ALL'ID DELLA SKILL */
+/* VARIABILE REATTIVA PER IL CAMPO DI RICERCA */
+const searchQuery = ref('');
+
+// FUNZIONE PER FILTRARE I PROGETTI IN BASE ALL'ID DELLA SKILL
 const filterProjects = (id) => {
     if (id === "all") {
-        /* SE ID E' ALL, MOSTRA TUTTI I PROGETTI */
+        // MOSTRA TUTTI I PROGETTI 
         filteredProjects.value = props.projects.data;
-
-        /* SELEZIONE SKILL */
-        selectedSkill.value = id;
     } else {
-        /* ALTRIMENTI, FILTRA I PROGETTI IN BASE ALL'ID DELLA SKILL */
-        filteredProjects.value = props.projects.data.filter(project => {
-            /* VERIFICO CHE NELL'ARRAY DELLE SKILLS DEL PROGETTO CI SIA UNA SKILL CON ID SPECIFICO */
-            return project.skills.some(skill => skill.id === id);
-        });
+        // FILTRA I PROGETTI IN BASE ALL'ID DELLA SKILL
+        filteredProjects.value = props.projects.data.filter(project =>
+            project.skills.some(skill => skill.id === id)
+        );
+    }
+    // AGGIORNA LA SELEZIONE IN BASE ALLA SKILL
+    selectedSkill.value = id;
+}
 
-        /* SELEZIONE SKILL */
-        selectedSkill.value = id;
+// FUNZIONE PER FILTRARE I PROGETTI IN BASE AL NOME
+const filteredProjectsSearch = computed(() => {
+    if (!searchQuery.value) {
+
+        /* SE VUOTA RESTITUISCI I PROGETTI */
+        return props.projects.data;
     }
 
-}
+    /* FILTRO I PROGETTI IN BASE AL NOME */
+    return props.projects.data.filter(project =>
+        project.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+});
+
+// FUNZIONE PER COMBINARE I DUE FILTRI
+const filteredProjectsList = computed(() => {
+    
+    /* FILTRO I PROGETTI IN BASE ALLA SKILL SELEZIONATA */
+    const filteredBySkill = selectedSkill.value === 'all' 
+    ? filteredProjects.value  // Se selectedSkill.value è 'all', mostro tutti i progetti
+    : filteredProjects.value.filter(project =>
+        project.skills.some(skill => skill.id === selectedSkill.value)
+    ); // Altrimenti, filtro i progetti per trovare quelli che contengono la skill selezionata
+
+
+    /* FILTRO I PROGETTI IN BASE AL NOME NELLA SEARCHBAR */
+    const filteredByName = filteredBySkill.filter(project =>
+        project.name.toLowerCase().includes(searchQuery.value.toLowerCase()) // Filtra i progetti che contengono il testo di searchQuery nel nome, ignorando maiuscole/minuscole
+    );
+
+    /* RESTITUISCO L'ARRAY DEI PROGETTI FILTRATI PER SKILL E NOME */
+    return filteredByName;
+});
 
 </script>
 
@@ -62,10 +93,16 @@ const filterProjects = (id) => {
             </ul>
         </nav>
 
+        <!-- CAMPO DI RICERCA -->
+            <div class="mb-4">
+                <input type="text" v-model="searchQuery" placeholder="Cerca Progetto..."
+                    class="px-4 w-full py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-950">
+            </div>
         <!-- SEZIONE PROGETTI CARD -->
         <section
             class="grid gap-y-12 lg:grid-cols-4 lg:gap-8 max-h-custom overflow-y-auto custom-scrollbar">
-            <ProjectCard v-for="project in filteredProjects" :key="project.id" :project="project" />
+            <!-- RICHIAMO LA FUNZIONE DOVE HO UNITO I DUE FILTRI -->
+            <ProjectCard v-for="project in filteredProjectsList" :key="project.id" :project="project" />
         </section>
 
 
