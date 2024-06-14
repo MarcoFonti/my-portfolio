@@ -24,7 +24,7 @@ function cleanForm() {
     setShowMessage(true) // Mostra il messaggio di successo
     setTimeout(() => {
         setShowMessage(false) // Nasconde il messaggio di successo dopo 3 secondi
-    }, 3000);
+    }, 2000);
 }
 
 /* FUNZIONE PER GESTIRE L'INVIO DEL FORM */
