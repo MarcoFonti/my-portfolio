@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SkillController;
@@ -28,9 +29,9 @@ Route::post('/contact', ContactController::class)->name('contact');
 
 /* CREO GRUPPO DI ROTTE PER AUTENTICATI */
 Route::middleware(['auth', 'verified'])->group(function(){
-    Route::get('/dashboard', function(){
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+
+    /* DASHBOARD */
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     /* CESTINO DELLE SKILLS */
     Route::get('/skills/trash', [SkillController::class, 'trash'])->name('skills.trash');
