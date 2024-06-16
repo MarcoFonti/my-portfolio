@@ -2,6 +2,7 @@
 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import moment from 'moment-timezone';
 
 
 const props = defineProps({
@@ -9,6 +10,10 @@ const props = defineProps({
     projects: Object,
     skills: Object
 });
+
+const formatDate = (date) => {
+    return moment.tz(date, "Europe/Rome").format('HH:mm:ss');
+};
 
 
 </script>
@@ -88,7 +93,7 @@ const props = defineProps({
                                     <td class="px-6 py-4">{{ message.name }}</td>
                                     <td class="px-6 py-4">{{ message.email }}</td>
                                     <td class="px-6 py-4">{{ message.body }}</td>
-                                    <td class="px-6 py-4">{{ message.created_at }}</td>
+                                    <td class="px-6 py-4"> {{ formatDate(message.created_at) }} </td>
                                 </tr>
                             </tbody>
                         </table>
