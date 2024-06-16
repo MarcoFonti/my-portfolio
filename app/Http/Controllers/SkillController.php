@@ -22,7 +22,7 @@ class SkillController extends Controller
     public function index()
     {
         /* RECUPERO VALORI MANIPOLATI DALLE RISORSE, E UTILIZZO IL METODO 'WITH' PER RECUPERARE I VALORI DELLA RELAZIONE CON I PROJECTS */
-        $skills = SkillResource::collection(Skill::with('projects')->get());
+        $skills = SkillResource::collection(Skill::with('projects')->orderBy('created_at', 'desc')->get());
 
         /* VISTA DELLE SKILLS */
         return Inertia::render('Skills/index', compact('skills'));
@@ -127,7 +127,7 @@ class SkillController extends Controller
     public function trash()
     {
         /* RECUPERO TUTTI LE SKILLS ELIMINATE */
-        $skills = Skill::onlyTrashed()->with('projects')->get();
+        $skills = Skill::onlyTrashed()->with('projects')->orderBy('created_at', 'desc')->get();
 
         /* VISTA SKILLS CESTINATE */
         return Inertia::render('Skills/trash', compact('skills'));

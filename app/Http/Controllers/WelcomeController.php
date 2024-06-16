@@ -19,7 +19,7 @@ class WelcomeController extends Controller
         $skills = SkillResource::collection(Skill::all());
 
         /* RECUPERO VALORI MANIPOLATI DALLE RISORSE, E UTILIZZO IL METODO 'WITH' PER RECUPERARE I VALORI DELLA RELAZIONE CON LE SKILLS */
-        $projects = ProjectResource::collection(Project::with('skills')->get());
+        $projects = ProjectResource::collection(Project::with('skills')->orderBy('created_at', 'desc')->get());
 
         /* ROTTE LOGIN E REGISTRAIONE */
         $canLogin = Route::has('login');

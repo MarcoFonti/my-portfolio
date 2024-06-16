@@ -20,7 +20,7 @@ class ProjectController extends Controller
     public function index()
     {
         /* RECUPERO VALORI MANIPOLATI DALLE RISORSE, E UTILIZZO IL METODO 'WITH' PER RECUPERARE I VALORI DELLA RELAZIONE CON LE SKILLS */
-        $projects = ProjectResource::collection(Project::with('skills')->get());
+        $projects = ProjectResource::collection(Project::with('skills')->orderBy('created_at', 'desc')->get());
 
         /* VISTA PER I PROGETTI */
         return Inertia::render('Projects/index', compact('projects'));
@@ -119,7 +119,7 @@ class ProjectController extends Controller
     public function trash()
     {
         /* RECUPERO TUTTI I PROGETTI ELIMINATI */
-        $projects = Project::onlyTrashed()->with('skills')->get();
+        $projects = Project::onlyTrashed()->with('skills')->orderBy('created_at', 'desc')->get();
 
         /* VISTA PROGETTI CESTINATI */
         return Inertia::render('Projects/trash', compact('projects'));
